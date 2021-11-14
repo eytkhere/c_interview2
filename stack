@@ -1,0 +1,41 @@
+struct Node{
+    int data;
+    struct Node* next;
+};
+
+struct Node* head;
+
+
+void Print(){
+    struct Node* temp = head;
+    while(temp != NULL){
+        printf("%d", temp -> data);
+        temp = temp -> next;
+    }
+    printf("\n");
+}
+
+void Push(int data){
+    struct Node* temp = (struct Node*)malloc(sizeof(struct Node*));
+    temp -> data = data;
+    temp -> next = head;
+    head = temp;
+}
+
+void Pop(){
+    struct Node* temp = head;
+    head = temp -> next;
+    free(temp);
+}
+
+int main(){
+    head = NULL; // Empty list
+    Push(2);
+    Push(3);
+    Push(5);
+    Push(7);
+    Print();
+    Pop();
+    Print();
+
+}
