@@ -1,0 +1,49 @@
+struct Node{
+    int data;
+    struct Node* next;
+};
+
+struct Node* head;
+
+void Insert(int data){
+    struct Node* temp1 = (struct Node*)malloc(sizeof(struct Node*));
+    temp1 -> data = data;
+    temp1 -> next = head;
+    head = temp1;
+}
+
+void Print(){
+    struct Node* temp1 = head;
+    while(temp1 != NULL){
+        printf("%d", temp1 -> data);
+        temp1 = temp1 -> next;
+    }
+    printf("%\n");
+}
+
+void Reverse(){
+    struct Node* prev = NULL;
+    struct Node* current = head;
+    struct Node* forward;
+    while(current != NULL){
+        forward = current -> next;
+        current -> next = prev;
+        prev = current;
+        current = forward;
+    }
+    head = prev;
+}
+
+
+int main(){
+    head = NULL; // empty list
+    Insert(2);
+    Insert(3);
+    Insert(5);
+    Insert(7);
+    Insert(11);
+    Insert(13);
+    Print();
+    Reverse();
+    Print();
+}
