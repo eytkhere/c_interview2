@@ -1,0 +1,42 @@
+
+int rotate(int* list_p, int list_size, int num_rotations){
+    int new_list[list_size];
+    for(int n = 0; n < list_size; n++){
+        new_list[n] = *list_p;
+        *list_p++;
+    }
+    // check that new list was created
+    printf("\noriginal: ");
+    for(int n = 0; n < list_size; n++){
+        printf("%d: ", new_list[n]);
+    }
+    int temp_list[list_size];
+    int i = 0;
+    while(i < num_rotations){
+    for(int n = 0; n < list_size-1; n++){
+        temp_list[n] = new_list[n+1];
+    }
+    temp_list[list_size-1] = new_list[0];
+    for(int n = 0; n < list_size; n++){
+        new_list[n] = temp_list[n];
+        }
+    i++;
+    }
+    printf("\nrotated: ");
+    for(int n = 0; n < list_size; n++){
+        printf("%d: ", temp_list[n]);
+    }
+}
+
+
+int main(){
+    int x;
+    printf("enter amount of rotations: ");
+    scanf("%d", &x);
+    int num_list[] = {2, 3, 5, 7, 11, 13};
+    int list_size = sizeof(num_list) / sizeof(int);
+    int new_list[list_size];
+    int* list_p = &num_list;
+    rotate(list_p, list_size, x);
+}
+
