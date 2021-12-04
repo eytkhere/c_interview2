@@ -1,0 +1,117 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+// function to check password is correct
+int password_check(char* password, char* temp_password){
+    int i = 0;
+    // bool check = 1 -> means true
+    int check = 1;
+    while(i < 5){
+        if (password[i] != temp_password[i]){
+            check = 0;
+        }
+        i++;
+    }
+    return(check);
+}
+
+void time_added() {
+    FILE * fuserdata = fopen("PATH\\user_data.cvs", "a");
+    // function to add time to transaction log
+    time_t t = time(NULL);
+    struct tm *tm = localtime(&t);
+    fprintf(fuserdata, asctime(tm));
+    fclose(fuserdata);
+    return 0;
+}
+
+void input_transaction(){
+    FILE * fuserdata = fopen("PATH\\user_data.cvs", "a");
+    float amount = 0;
+    time_added();
+    char sign_inp = '+';
+    fprintf(fuserdata, "%c", sign_inp);
+    printf("How much you want to enter?\n");
+    scanf("%f", &amount);
+    fprintf(fuserdata, "%f", amount);
+    fclose(fuserdata);
+    return 0;
+}
+
+void output_transaction(){
+    FILE * fuserdata = fopen("PATH\\user_data.cvs", "a");
+    float amount = 0;
+    time_added();
+    char sign_inp = '-';
+    fprintf(fuserdata, "%c", sign_inp);
+    printf("How much you want to enter?\n");
+    scanf("%f", &amount);
+    fprintf(fuserdata, "%f", amount);
+    fclose(fuserdata);
+    return 0;
+}
+
+void new_transaction(){
+    char type_of_transaction[10];
+    printf("Is this an input or output?\n");
+    printf("Please type input/output \n");
+    scanf("%s", type_of_transaction);
+    if(type_of_transaction[0] == 'i'){
+        input_transaction();
+    }else{
+        output_transaction();
+    }
+    return 0;
+ }
+
+int main(){
+    FILE * fuserpass = fopen("PATH\\password.txt", "r");
+    // check text file for password and save in array
+    char password[5];
+    while(fscanf(fuserpass, "%[^\n]", password) != EOF){
+    }
+    printf("\nEnter password: ");
+    char temp_password[5];
+    scanf("%s", temp_password);
+    // compare saved password to user input
+    int bool_check, firstVis_bool = 0;
+    bool_check = password_check(password, temp_password);
+    if(bool_check == 0){\
+        // if incorrect password
+        printf("An error has occurred\t");
+        exit(0);
+    }
+    // close password verification text - not needed anymore
+    fclose(fuserpass);
+    printf("Is this your first visit?\t(1 - yes, 0 - no)\n");
+    scanf("%d", &firstVis_bool);
+    FILE * fuserdata = fopen("PATH\\user_data.cvs", "a");
+    if(firstVis_bool != 0){
+        printf("Enter id name: ");
+        char* id_name = (char*)malloc(sizeof(char));
+        scanf("%s", id_name);
+        fprintf(fuserdata, id_name);
+        free(id_name);
+    }else{
+        printf("Welcome\n");
+    }
+    bool_check = 0; // reusing bool_check
+    int transaction_flag = 1;
+    // loop to have multiple transactions
+    while(transaction_flag == 1){
+        printf("Would you like to add a new transaction?\t(1 - yes, 0 - no)\n");
+        scanf("%d", &bool_check);
+        if(bool_check != 0){
+            new_transaction();
+        }else{
+            fclose(fuserdata);
+            printf("Thank you using the program \nSee you soon!");
+            exit(0);
+        }
+        printf("Would you like to add another transaction?\t(1 - yes, 0 - no)\n");
+        scanf("%d", &transaction_flag);
+    }
+    fclose(fuserdata);
+    printf("Thank you using the program \nSee you soon!");
+}
