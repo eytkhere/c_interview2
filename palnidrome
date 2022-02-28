@@ -1,0 +1,41 @@
+int Palnidrome(int* p2, int len_a){
+    if(len_a==1||len_a==0){
+        int tr_ans=0;
+        return(tr_ans);
+    }
+    else if(*p2==*(p2+len_a-1)){
+        Palnidrome((p2+1), (len_a-2));
+    }
+    else{
+        int fs_ans=1;
+        return(fs_ans);
+    }
+}
+
+int Convert(int num1){
+    int temp_num=num1;
+    int* p;
+    int arr_a[10];
+    p = &arr_a;
+    int i=0;
+    while(temp_num!=0){
+        arr_a[i]=(temp_num%10);
+        temp_num=temp_num/10;
+        i++;
+    }
+    int ans=Palnidrome(p, i);
+    return(ans);
+}
+
+int main()
+{
+    int num1=323;
+    int num2=231;
+    int ans=Convert(num1);
+    if(ans==0){
+        printf("it is a palnidrome");
+    }
+    else{
+        printf("it is not a palnidrome");
+    }
+}
