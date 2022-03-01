@@ -1,0 +1,44 @@
+/// Finding slope of linear line, m=(y2-y1)/(x2-x1)
+///the idea of this problem is to work with structs, pointer to structs, and using multiple functions
+/// denominator(denom) is the lower part of the equation (x2-x1)
+/// numerator(numer) is the upper part of the equation (y2-y1)
+
+struct point{
+    float x;
+    float y;
+};
+
+void Slope(struct point* pta,struct point* ptb){
+    float m; /// slope
+    float numer, denom;
+    numer=(ptb->y-pta->y);
+    denom=(ptb->x-pta->x);
+    m=(numer/denom);
+    printf("The slope(m) is: %f", m);
+}
+
+void Create(){
+    float x1, x2, y1, y2;
+    struct point a;
+    struct point b;
+    printf("Enter x1: ");
+    scanf("%f", &x1);
+    a.x=x1;
+    printf("Enter y1: ");
+    scanf("%f", &y1);
+    a.y=y1;
+    printf("Enter x2: ");
+    scanf("%f", &x2);
+    b.x=x2;
+    printf("Enter y2: ");
+    scanf("%f", &y2);
+    b.y=y2;
+    struct point *pta=&a;
+    struct point *ptb=&b;
+    Slope(pta, ptb);
+}
+
+
+int main(){
+    Create();
+}
