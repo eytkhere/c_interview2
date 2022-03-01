@@ -1,0 +1,68 @@
+struct Node{
+    int data;
+    struct Node* next;
+};
+
+struct Node* front;
+struct Node* rear;
+
+int IsEmpty(){ // 0 is true, 1 is false
+    int bool_num=1;
+    if(front==NULL&&rear==NULL){
+        bool_num=0;
+    }
+    return(bool_num);
+}
+
+void Enqueue(int data){
+    struct Node* temp1=(struct Node*)malloc(sizeof(struct Node*));
+    struct Node* temp2;
+    int num=IsEmpty();
+    if(num==0){
+        front=rear=temp1;
+    }
+    temp1->data=data;
+    temp2=rear;
+    rear=temp1;
+    temp2->next=temp1;
+    temp1->next=NULL;
+}
+
+void Dequeue(){
+    struct Node* temp1;
+    int num=IsEmpty();
+    if(num==0){
+        printf("Empty!");
+        return(0);
+    }
+    temp1=front;
+    front=front->next;
+    printf("removed: %d", temp1->data);
+    free(temp1);
+}
+
+void Print(){
+    struct Node* temp1;
+    temp1=front;
+    printf("\nBegin Print list:\n");
+    while(temp1!=NULL){
+        printf("%d\n", temp1->data);
+        temp1=temp1->next;
+    }
+    printf("Done Printing");
+}
+
+int main(){
+    front=rear=NULL;
+    Enqueue(1);
+    Enqueue(2);
+    Enqueue(4);
+    Enqueue(8);
+    Enqueue(16);
+    Dequeue(); // doesn't matter where one puts it because it removes the first one
+    Enqueue(32);
+    Enqueue(64);
+    Dequeue();
+    Enqueue(99);
+    Print();
+}
