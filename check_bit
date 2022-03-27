@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+    int x, y;
+    printf("Enter number:\n");
+    scanf("%d", &x);
+    printf("Enter which bit to check:\n");
+    scanf("%d", &y);
+    int check_bit=(x&(1<<(y-1)));
+    if(check_bit!=0){
+        printf("SET");
+    }else{
+        printf("NOT SET");
+    }
+}
